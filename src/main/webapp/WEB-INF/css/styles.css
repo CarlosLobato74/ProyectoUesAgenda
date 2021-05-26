@@ -1,0 +1,16 @@
+
+/*Contenedor*/
+.contenido{
+    width: 20%;
+    height: 300px;
+    margin: 10% auto auto auto;   
+}
+
+
+/*formulario*/
+.form{
+    padding: 10px 10px 10px 10px;
+}
+
+/*reponsive*/
+
