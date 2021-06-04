@@ -1,5 +1,5 @@
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%--@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" --%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,10 +9,12 @@
     <body>
         <h1>AGENDA</h1>
         <ul>
+            <%--
             <c:forEach var="cliente" items="${clientes}">
                 <li>${cliente.idUser} ${cliente.descripcion} ${cliente.fecha} ${cliente.hora}</li>
                     
             </c:forEach>
+            --%>
         </ul>
     </body>
 </html>

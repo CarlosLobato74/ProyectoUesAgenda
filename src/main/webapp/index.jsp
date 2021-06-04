@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+ <meta http-equiv="refresh" content="5;url=${pageContext.request.contextPath}/ServletControlador}">
+ 
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +14,7 @@
         <title>Agenda Iniciar Sesion</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="refresh" content="10;url=${pageContext.request.contextPath}/ServletControlador}">
+       
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         
@@ -24,7 +25,7 @@
             <!--<img src="https://eel.ues.edu.sv/img/site/minerva-sf.png" class="img-thumbnail "  alt="UES-LOGO">-->
             </br>
             <!--Formulario-->
-            <form action="/UesWebProyecto/loginServlet" method="GET">
+            <form>
                 <h2 class="fw-bold text-center">Iniciar Sesión</h2>
                 <div class="mb-3">
                     <label for="userId" class="form-label">Usuario:</label>

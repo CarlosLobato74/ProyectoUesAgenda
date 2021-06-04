@@ -1,4 +1,3 @@
-
 package web;
 
 import datos.ClienteDaoJDBC;
@@ -10,10 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 @WebServlet("/ServletControlador")
-public class ServletControlador extends HttpServlet{
+public class ServletControlador extends HttpServlet {
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException{
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         List<Cliente> clientes = new ClienteDaoJDBC().listar();
         System.out.println("Clientes = " + clientes);
         request.setAttribute("clientes", clientes);
