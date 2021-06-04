@@ -9,9 +9,10 @@
         <title>UesWebProyecto</title>
     </head>
     <body>
-        <h1>AGENDA</h1>
+        <!--Cabecero-->
+        <jsp:include page="WEB-INF/paginas/comunes/cabecero.jsp"/>
+        
         <ul>
-            
             <c:forEach var="clientes" items="${clientes}">
                 <li>${clientes.idUser} - ${clientes.idAgenda} ${clientes.descripcion} <a>date: </a>${clientes.fecha} <a>time: </a>${clientes.hora}</li>          
             </c:forEach>
