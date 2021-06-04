@@ -13,6 +13,7 @@ import dominio.Cliente;
 @WebServlet("/ServletControlador")
 public class ServletControlador extends HttpServlet {
 
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
