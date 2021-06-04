@@ -10,15 +10,12 @@ import java.sql.*;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 
-/**
- *
- * @author qwerty
- */
-public class ConexionDb {
-    private static final String JDBC_URL = "jdbc:mysql://sql5.freemysqlhosting.net:3306/sql5413080?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    private static final String JDBC_USER = "ql5413080";
-    private static final String JDBC_PASSWORD = "NVgUbuDa8n";
+public class Conexion {
+    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/ues_base?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String JDBC_USER = "root";
+    private static final String JDBC_PASSWORD = "";
     
+    /*Recupera una conexion a la base de datos*/
     public static DataSource getDataSource(){
         BasicDataSource ds = new BasicDataSource();
         ds.setUrl(JDBC_URL);
@@ -27,11 +24,12 @@ public class ConexionDb {
         ds.setInitialSize(50);
         return ds;
     }
-    
+    /*Obtiene la conexion a la base de datos dependiendo del pool de conexion*/
     public static Connection getConnection() throws SQLException{
         return getDataSource().getConnection();
     }
     
+    /*Cierra el ResultSet*/
     public static void close(ResultSet rs){
         try {
             rs.close();
@@ -39,7 +37,7 @@ public class ConexionDb {
             ex.printStackTrace(System.out);
         }
     }
-    
+    /*Cierra el PreparedStatement*/
     public static void close(PreparedStatement stmt){
         try {
             stmt.close();
@@ -47,7 +45,7 @@ public class ConexionDb {
            ex.printStackTrace(System.out);
         }
     }
-    
+    /*Cierra el objeto de conexion*/
     public static void close(Connection conn){
         try {
             conn.close();
