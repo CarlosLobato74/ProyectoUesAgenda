@@ -6,8 +6,7 @@ import java.util.*;
 
 public class ClienteDaoJDBC {
 
-    private static final String SQL_SELECT = "SELECT ID_User, ID_agenda, Descripcion, Fecha, Hora"
-            + "FROM agenda";
+    private static final String SQL_SELECT = "SELECT  ID_agenda, Descripcion, Fecha, Hora FROM agenda";
 
     private static final String SQL_SELECT_BY_ID = "SELECT ID_User, ID_agenda, Descripcion, Fecha, Hora"
             + "FROM agenda WHERE ID_Agenda = ?";
@@ -31,13 +30,13 @@ public class ClienteDaoJDBC {
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int idUser = rs.getInt("ID_User");
+                
                 int idAgenda = rs.getInt("ID_Agenda");
                 String descripcion = rs.getString("Descripcion");
                 String fecha = rs.getString("Fecha");
                 String hora = rs.getString("Hora");
 
-                cliente = new Cliente(idUser, idAgenda, descripcion, fecha, hora);
+                cliente = new Cliente(1, idAgenda, descripcion, fecha, hora);
                 clientes.add(cliente);
             }
         } catch (SQLException ex) {

@@ -21,7 +21,7 @@ public class Conexion {
         ds.setUrl(JDBC_URL);
         ds.setUsername(JDBC_USER);
         ds.setPassword(JDBC_PASSWORD);
-        ds.setInitialSize(50);
+        ds.setInitialSize(10);
         return ds;
     }
     /*Obtiene la conexion a la base de datos dependiendo del pool de conexion*/

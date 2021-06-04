@@ -1,9 +1,4 @@
-<%-- 
-    Document   : index
-    Created on : 25 may. 2021, 21:35:44
-    Author     : qwerty
---%>
-<meta http-equiv="refresh" content="0;url=${pageContext.request.contextPath}/ServletControlador}">
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
@@ -20,12 +15,12 @@
 
     </head>
     <body>
-
+        <!--Contenedor del formulario-->
         <div class="breadcrumb p-3 mb-2 position-absolute top-50 start-50 translate-middle border border-3 border-secondary rounded-3">
             <!--<img src="https://eel.ues.edu.sv/img/site/minerva-sf.png" class="img-thumbnail "  alt="UES-LOGO">-->
             </br>
-            <!--Formulario-->
-            <form method="Get" action="${pageContext.request.contextPath}/ServletControlador">
+        <!--Formulario-->
+            <form name="form" action="/UesWebProyecto/ServletControlador" method="GET">
                 <h2 class="fw-bold text-center">Iniciar Sesión</h2>
                 <div class="mb-3">
                     <label for="userId" class="form-label">Usuario:</label>
@@ -35,8 +30,8 @@
                     <label for="password" class="form-label">Contrasenia:</label>
                     <input type="password" class="form-control" id="password" placeholder="Contrasenia">
                 </div>
-                <button type="button" class="btn btn-secondary " type="submit" id="enviar">Iniciar Sesion</button>
-                <button type="button" class="btn btn-secondary " id="registrarse">Registrarse</button>
+                <input class="btn btn-secondary " type="submit" value='Iniciar Sesion'>
+                <input  class="btn btn-secondary" type="reset" value='Registrarse'>
             </form>
 
         </div>
