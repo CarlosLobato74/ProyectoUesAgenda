@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ClienteDaoJDBC {
 
-    private static final String SQL_SELECT = "SELECT  ID_User, ID_agenda, Descripcion, Fecha, Hora FROM agenda";
+    private static final String SQL_SELECT = "SELECT  ID_User, ID_agenda, Descripcion, Fecha, Hora FROM agenda WHERE ID_User = 1";
 
     private static final String SQL_SELECT_BY_ID = "SELECT ID_User, ID_agenda, Descripcion, Fecha, Hora"
             + "FROM agenda WHERE ID_Agenda = ?";

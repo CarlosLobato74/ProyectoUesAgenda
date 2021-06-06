@@ -1,8 +1,23 @@
 
-<header>
-    <div class="p-3 mb-2 bg-danger text-white">
-      
-            <h1>Agenda Ues *.*</h1>
-     
-    </div>    
-</header>
+<div class=" bg-danger text-white">
+
+    <div class="container p-1">
+        <h2>Agenda Ues</h2>
+    </div>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#agregarNuevoEvento">
+                        Agregar nuevo evento</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+
+
+

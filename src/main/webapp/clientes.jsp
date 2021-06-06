@@ -1,7 +1,7 @@
 
 
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,15 +14,9 @@
     <body>
         <!--Cabecero-->
         <jsp:include page="WEB-INF/paginas/comunes/cabecero.jsp"/>
-        <div class="breadcrumb p-3 mb-2 ">
-            <ul>
-                <c:forEach var="clientes" items="${clientes}">
-                   
-                    <div class="p-3 mb-2 bg-light text-dark top-50"> ${clientes.idUser} - ${clientes.idAgenda} ${clientes.descripcion} <a>date: </a>${clientes.fecha} <a>time: </a>${clientes.hora}</div>          
-                </c:forEach>
-
-            </ul>
-        </div>
+        <!--Listado Agenda-->
+        <jsp:include page="WEB-INF/paginas/cliente/listadoAgenda.jsp"/>
+        <!--PiedePagina-->
         <jsp:include page="WEB-INF/paginas/comunes/piedepagina.jsp"/>
         <!-- Separate Popper and Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
