@@ -19,9 +19,13 @@ public class ClienteDaoJDBC {
 
     private static final String SQL_DELETE = "DELETE FROM agenda WHERE ID_Agenda = ?";
 
-    Login idNew = new Login();
-
+    
+    
+    
     public List<Cliente> listar() {
+        Login idLlenar = new Login();
+        idLlenar.setUserId(1);
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -30,7 +34,7 @@ public class ClienteDaoJDBC {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
-            stmt.setInt(0, 1);
+            stmt.setInt(1, idLlenar.getUserId());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 int idUser = rs.getInt("ID_User");
