@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ClienteDaoJDBC {
 
-    private static final String SQL_SELECT = "SELECT  ID_User, ID_agenda, Descripcion, Fecha, Hora FROM agenda WHERE ID_User = 1";
+    private static final String SQL_SELECT = "SELECT  ID_User, ID_agenda, Descripcion, Fecha, Hora FROM agenda WHERE ID_User = ?";
 
     private static final String SQL_SELECT_BY_ID = "SELECT ID_User, ID_agenda, Descripcion, Fecha, Hora"
             + "FROM agenda WHERE ID_Agenda = ?";
@@ -18,14 +18,9 @@ public class ClienteDaoJDBC {
             + " SET Descripcion=?, Fecha=?, Hora=? WHERE ID_Agenda=?";
 
     private static final String SQL_DELETE = "DELETE FROM agenda WHERE ID_Agenda = ?";
-    
-    private static int id;
 
-    public static void setId(int id) {
-        ClienteDaoJDBC.id = id;
-    }
-    
-    
+    Login idNew = new Login();
+
     public List<Cliente> listar() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -35,15 +30,16 @@ public class ClienteDaoJDBC {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
+            stmt.setInt(0, 1);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int idu = rs.getInt("ID_User");
+                int idUser = rs.getInt("ID_User");
                 int idAgenda = rs.getInt("ID_Agenda");
                 String descripcion = rs.getString("Descripcion");
                 String fecha = rs.getString("Fecha");
                 String hora = rs.getString("Hora");
-                
-                cliente = new Cliente(idu, idAgenda, descripcion, fecha, hora);
+
+                cliente = new Cliente(idUser, idAgenda, descripcion, fecha, hora);
                 clientes.add(cliente);
             }
         } catch (SQLException ex) {
@@ -132,9 +128,9 @@ public class ClienteDaoJDBC {
         }
         return rows;
     }
-    
-    public int eliminar(Cliente cliente){
-          Connection conn = null;
+
+    public int eliminar(Cliente cliente) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
 

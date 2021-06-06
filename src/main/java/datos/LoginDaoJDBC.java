@@ -12,8 +12,8 @@ public class LoginDaoJDBC implements validar {
     ResultSet rs;
 
     int r = 0;
-    //int idUserV;
-
+    
+   
     @Override
     public int validar(Login log) {
         String sql = "Select * from login WHERE  User=? and Password =?";
@@ -23,14 +23,13 @@ public class LoginDaoJDBC implements validar {
             ps = con.prepareStatement(sql);
             ps.setString(1, log.getUser());
             ps.setString(2, log.getPassword());
-
             rs = ps.executeQuery();
+            
+            
             while (rs.next()) {
                 r = r + 1;
-              
                 log.setUser(rs.getString("User"));
-                log.setPassword(rs.getString("Password"));
-
+                log.setPassword(rs.getString("Password"));  
             }
             if (r == 1) {
                 return 1;

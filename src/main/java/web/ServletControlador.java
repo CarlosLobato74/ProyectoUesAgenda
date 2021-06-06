@@ -19,35 +19,31 @@ public class ServletControlador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+               
+        String accion = request.getParameter("accion");
+        
+        if (accion.equals("Ingresar")) {
+            String us = request.getParameter("userId");
+            String ps = request.getParameter("password");
+            l.setUser(us);
+            l.setPassword(ps);
+            
+            r = dao.validar(l);
+            
+            if (r == 1) {    
                 Cliente prueba = new Cliente(1);
                 List<Cliente> clientes = new ClienteDaoJDBC().listar();
                 System.out.println("Clientes = " + clientes); 
                 request.setAttribute("clientes", clientes);
                 request.getRequestDispatcher("clientes.jsp").forward(request, response);
-//        String accion = request.getParameter("accion");
-//        ClienteDaoJDBC oId = new ClienteDaoJDBC();
-//        if (accion.equals("Ingresar")) {
-//            String us = request.getParameter("userId");
-//            String ps = request.getParameter("password");
-//            l.setUser(us);
-//            l.setPassword(ps);
-//            
-//            r = dao.validar(l);
-//            if (r == 1) {
-//                
-//                Cliente prueba = new Cliente(1);
-//                List<Cliente> clientes = new ClienteDaoJDBC().listar();
-//                System.out.println("Clientes = " + clientes); 
-//                request.setAttribute("clientes", clientes);
-//                request.getRequestDispatcher("clientes.jsp").forward(request, response);
-//                //int idcliente = Integer.parseInt(request.getParameter("ID_User"));
-//               
-//            }else if(r == 0){
-//                 request.getRequestDispatcher("index.jsp").forward(request, response);
-//            }
-//
-//        }
-//
+                
+               
+            }else if(r == 0){
+                 request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+
+        }
+
     }
 
 }
