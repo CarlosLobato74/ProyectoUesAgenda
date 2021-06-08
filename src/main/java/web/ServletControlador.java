@@ -26,10 +26,10 @@ public class ServletControlador extends HttpServlet {
             String ps = request.getParameter("password");
             l.setUser(us);
             l.setPassword(ps);
-
+    
             r = dao.validar(l);
-            if (r > 0) {
-                
+     
+            if (r > 1) {
                 List<Cliente> clientes = new ClienteDaoJDBC().listar();
                 System.out.println("Clientes = " + clientes);
                 request.setAttribute("clientes", clientes);
@@ -37,10 +37,12 @@ public class ServletControlador extends HttpServlet {
 
             } else if (r == 0) {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
+
             }
+        }
 
         }
 
     }
 
-}
+
