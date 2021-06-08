@@ -9,6 +9,10 @@ public class Login {
     public Login() {
     }
 
+    public Login(int userId) {
+        this.userId = userId;
+    }
+    
     public Login(int userId, String user, String password) {
         this.userId = userId;
         this.user = user;

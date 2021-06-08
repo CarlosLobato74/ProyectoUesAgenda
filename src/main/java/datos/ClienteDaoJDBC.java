@@ -18,31 +18,43 @@ public class ClienteDaoJDBC {
             + " SET Descripcion=?, Fecha=?, Hora=? WHERE ID_Agenda=?";
 
     private static final String SQL_DELETE = "DELETE FROM agenda WHERE ID_Agenda = ?";
-    
-    private static int id;
 
-    public static void setId(int id) {
-        ClienteDaoJDBC.id = id;
-    }
-    
-    
+    private static String encontrarId = "SELECT ID_User FROM login WHERE User=? AND Password = ?";
+
+    Login l = new Login();
+    Cliente cliU = new Cliente();
+    int cli = cliU.getIdAgenda();
+
+
+
+    /*Crea una lista con nuestros agendas creadas*/
     public List<Cliente> listar() {
+       
+       
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Cliente cliente = null;
+        
+
         List<Cliente> clientes = new ArrayList<>();
         try {
+
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
+           
             rs = stmt.executeQuery();
+            
+            
+
+            /*Genera una lista con los datos que encuentra por la sentencia del sql*/
             while (rs.next()) {
                 int idu = rs.getInt("ID_User");
                 int idAgenda = rs.getInt("ID_Agenda");
                 String descripcion = rs.getString("Descripcion");
                 String fecha = rs.getString("Fecha");
                 String hora = rs.getString("Hora");
-                
+
                 cliente = new Cliente(idu, idAgenda, descripcion, fecha, hora);
                 clientes.add(cliente);
             }
@@ -52,10 +64,39 @@ public class ClienteDaoJDBC {
             Conexion.close(rs);
             Conexion.close(stmt);
             Conexion.close(conn);
+
         }
         return clientes;
     }
+    /*buscando el id*/
+public void busquedaId(){
+    
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(encontrarId);
+            rs = stmt.executeQuery();
+            rs.absolute(1);
+            
+            String idU = rs.getString("ID_User");
+            cliU.setIdAgenda(Integer.parseInt(idU));
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        
+
+}
+
+
+/*buscar por id*/
     public Cliente encontrar(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -86,6 +127,7 @@ public class ClienteDaoJDBC {
         return cliente;
     }
 
+    /*INSERTAR */
     public int insertar(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -109,6 +151,7 @@ public class ClienteDaoJDBC {
         return rows;
     }
 
+    /*ACTUALIZAR*/
     public int actualizar(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -132,9 +175,10 @@ public class ClienteDaoJDBC {
         }
         return rows;
     }
-    
-    public int eliminar(Cliente cliente){
-          Connection conn = null;
+
+    /*ELIMINAR*/
+    public int eliminar(Cliente cliente) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
 

@@ -1,7 +1,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +19,7 @@
             <!--<img src="https://eel.ues.edu.sv/img/site/minerva-sf.png" class="img-thumbnail "  alt="UES-LOGO">-->
             </br>
         <!--Formulario-->
-            <form name="form" class="bg-dark text-white" action="/UesWebProyecto/ServletControlador" method="GET">
+            <form name="form" class="bg-dark text-white" action="/UesWebProyecto/ServletControlador" method="POST">
                 <h2 class="fw-bold text-center">Iniciar Sesión</h2>
                 <div class="mb-3">
                     <label for="userId" class="form-label">Usuario:</label>

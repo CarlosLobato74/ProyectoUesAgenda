@@ -5,6 +5,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">idUser</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Hora</th>
                     <th scope="col">Descripcion</th>
@@ -16,6 +17,7 @@
                 <c:forEach var="clientes" items="${clientes}">
                 <tr> 
                     <th scope="row">${clientes.idAgenda}</th>
+                    <td>${clientes.idUser}</td>
                     <td>${clientes.fecha}</td>
                     <td>${clientes.hora}</td>
                     <td>${clientes.descripcion}</td>
