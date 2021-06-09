@@ -20,7 +20,8 @@ public class ServletControlador extends HttpServlet {
             throws ServletException, IOException {
 
         String accion = request.getParameter("accion");
-
+        
+        /*Pasa parametros ingresados a atributos y los manda a validad*/
         if (accion.equals("Ingresar")) {
             String us = request.getParameter("userId");
             String ps = request.getParameter("password");
@@ -28,19 +29,10 @@ public class ServletControlador extends HttpServlet {
             l.setPassword(ps);
 
             r = dao.validar(l);
-
+            /*Compureba el resultado de la validacion si encontro al usuario sera mayor a 0*/
             if (r >= 1) {
-                List<Cliente> clientes = new ClienteDaoJDBC().listar();
-                
-                request.setAttribute("clientes", clientes);
-                List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
-                HttpSession sesion = request.getSession();
-                request.setAttribute("logins", userInfo);
-                System.out.println("usuario = " + userInfo);
-                
-                
-                request.getRequestDispatcher("clientes.jsp").forward(request, response);
-                
+
+                this.accionDefault(request, response);
 
             } else if (r == 0) {
 
@@ -50,6 +42,21 @@ public class ServletControlador extends HttpServlet {
         }
 
     }
-    
+
+    /*accion default Para respuesta del JSP*/
+    public void accionDefault(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        /*Info de la agenda*/
+        List<Cliente> clientes = new ClienteDaoJDBC().listar();
+        request.setAttribute("clientes", clientes);
+        /*info del usuario*/
+        List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
+        request.setAttribute("logins", userInfo);
+        System.out.println("usuario = " + userInfo);
+
+        request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);
+
+    }
 
 }

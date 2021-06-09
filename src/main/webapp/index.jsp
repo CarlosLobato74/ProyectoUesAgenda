@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="WEB-INF/css/styles.css" rel="stylesheet" type="text/css"/>
+
         <title>Agenda Iniciar Sesion</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,8 +18,8 @@
     <body class="text-center"> 
 
         <!--Contenedor del formulario-->
-       
-          <div class="w-25 container p-1 position-absolute top-50 start-50 translate-middle">
+
+        <div class="w-25 container p-1 position-absolute top-50 start-50 translate-middle">
 
             </br>
             <img class="mb4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="" width="175" height="150">
@@ -41,15 +41,20 @@
                 </div>
                 </br></br>
                 <input class="w-100 btn btn-lg btn-primary" type="submit" value='Ingresar' name="accion"></br></br>
-                <a href="#" class="w-100 btn btn-lg btn-primary" data-toggle="modal" data-target="#registrarseModal"><i class="fas fa-plus"></i>Registrarse</a>
+
             </form>
-           
-
+            <section id="actions" >
+                <button   class="btn btn-lg btn-primary w-100" 
+                          data-bs-toggle="modal" data-bs-target="#registrarseModal">
+                    <i class="fas fa-plus"></i> Registrarse
+                </button>
+            </section>
         </div>
-<jsp:include page="/WEB-INF/paginas/cliente/registrarse.jsp"/>
-        <!-- Separate Popper and Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
+
+        <jsp:include page="WEB-INF/paginas/cliente/registrarse.jsp"/>
+        <!-- Separate Popper and Bootstrap JS -->
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     </body>
 </html>

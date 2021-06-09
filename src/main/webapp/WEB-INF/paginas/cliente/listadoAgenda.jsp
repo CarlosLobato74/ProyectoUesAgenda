@@ -8,8 +8,8 @@
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="text-center">Agenda </h4>
-
+                        <h4 class="text-center">Eventos agendados</h4>
+                            
                     </div>
                     <table class="table table-dark ">
                         <thead>
