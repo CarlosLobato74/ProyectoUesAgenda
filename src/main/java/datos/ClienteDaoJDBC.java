@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ClienteDaoJDBC {
 
-    private static final String SQL_SELECT = "SELECT  ID_User, ID_agenda, Descripcion, Fecha, Hora FROM agenda";// WHERE ID_User = 1";
+    private static final String SQL_SELECT = "SELECT  ID_User, ID_agenda, Descripcion, Fecha, Hora FROM agenda WHERE ID_User = ?";
 
     private static final String SQL_SELECT_BY_ID = "SELECT ID_User, ID_agenda, Descripcion, Fecha, Hora"
             + "FROM agenda WHERE ID_Agenda = ?";
@@ -20,36 +20,31 @@ public class ClienteDaoJDBC {
     private static final String SQL_DELETE = "DELETE FROM agenda WHERE ID_Agenda = ?";
 
 
-    private static String encontrarId = "SELECT ID_User FROM login WHERE User=? AND Password = ?";
-
-    Login l = new Login();
    
 
+    Login l = new Login();
+    
+    private int us = l.getUserId();
+    
 
 
     /*Crea una lista con nuestros agendas creadas*/
 
     
     public List<Cliente> listar() {
-
+              
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Cliente cliente = null;
-        
-
+        Cliente cliente = null;        
         List<Cliente> clientes = new ArrayList<>();
+        
         try {
 
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
-
-           
-
+            stmt.setInt(1, this.us);
             rs = stmt.executeQuery();
-            
-            
-
             /*Genera una lista con los datos que encuentra por la sentencia del sql*/
             while (rs.next()) {
                 int idUser = rs.getInt("ID_User");
@@ -61,6 +56,7 @@ public class ClienteDaoJDBC {
                 cliente = new Cliente(idUser, idAgenda, descripcion, fecha, hora);
 
                 clientes.add(cliente);
+                
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

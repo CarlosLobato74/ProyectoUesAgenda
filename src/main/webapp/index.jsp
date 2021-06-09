@@ -12,25 +12,33 @@
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+
     </head>
-    <body > 
+    <body class="text-center"> 
         <!--Contenedor del formulario-->
-        <div class="breadcrumb">
-            <!--<img src="https://eel.ues.edu.sv/img/site/minerva-sf.png" class="img-thumbnail "  alt="UES-LOGO">-->
+        <div class="w-25 container p-1 position-absolute top-50 start-50 translate-middle">
+           
             </br>
-        <!--Formulario-->
-            <form name="form" class="bg-dark text-white" action="/UesWebProyecto/ServletControlador" method="POST">
+            <img class="mb4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="" width="175" height="150">
+            <!--Formulario-->
+            <form name="form"  class="was-validated" action="/UesWebProyecto/ServletControlador" method="POST">
+                
+
                 <h2 class="fw-bold text-center">Iniciar Sesión</h2>
-                <div class="mb-3">
-                    <label for="userId" class="form-label">Usuario:</label>
-                    <input type="text" class="form-control" id="userId" placeholder="Usuario" name="userId">
+
+                <div class="form-floating">
+                    
+                    <input type="text" class="form-control" id="userId" placeholder="Usuario" name="userId" required>
+               <label for="userId" class="form-label">Usuario:</label>
+                </div></br></br>
+                <div class="form-floating ">
+                   
+                    <input type="password" class="form-control" id="password" placeholder="Contrasenia"  name="password" required>
+                 <label for="password" class="form-label">Contrasenia:</label>
                 </div>
-                <div class="mb-3 ">
-                    <label for="password" class="form-label">Contrasenia:</label>
-                    <input type="password" class="form-control" id="password" placeholder="Contrasenia"  name="password">
-                </div>
-                <input class="btn btn-secondary mb-3 " type="submit" value='Ingresar' name="accion">
-                <input  class="btn btn-secondary mb-3" type="reset" value='Registrarse'>
+                </br></br>
+                <input class="w-100 btn btn-lg btn-primary" type="submit" value='Ingresar' name="accion"></br></br>
+                <input  class="w-100 btn btn-lg btn-primary" type="reset" value='Registrarse'>
             </form>
 
         </div>

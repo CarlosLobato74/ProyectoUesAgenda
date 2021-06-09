@@ -6,9 +6,9 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">idUser</th>
+                     <th scope="col">Descripcion</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Hora</th>
-                    <th scope="col">Descripcion</th>
                     <th scope="col">Editar</th>
                     <th scope="col">Eliminar</th>
                 </tr>
@@ -18,9 +18,9 @@
                 <tr> 
                     <th scope="row">${clientes.idAgenda}</th>
                     <td>${clientes.idUser}</td>
+                     <td>${clientes.descripcion}</td>
                     <td>${clientes.fecha}</td>
                     <td>${clientes.hora}</td>
-                    <td>${clientes.descripcion}</td>
                     <td><button type="button" class="btn btn-secondary">Editar</button></td>
                     <td><button type="button" class="btn btn-secondary">Eliminar</button></td>
                 </tr>
