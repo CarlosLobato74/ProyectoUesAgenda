@@ -14,7 +14,7 @@ public class ServletControlador extends HttpServlet {
     LoginDaoJDBC dao = new LoginDaoJDBC();
     Login l = new Login();
     int r;
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -26,32 +26,30 @@ public class ServletControlador extends HttpServlet {
             String ps = request.getParameter("password");
             l.setUser(us);
             l.setPassword(ps);
-            
+
             r = dao.validar(l);
-     
+
             if (r >= 1) {
                 List<Cliente> clientes = new ClienteDaoJDBC().listar();
-                HttpSession sesion = request.getSession();
                 
-               
-              
-                System.out.println("Clientes = " + clientes);
                 request.setAttribute("clientes", clientes);
+                List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
+                HttpSession sesion = request.getSession();
+                request.setAttribute("logins", userInfo);
+                System.out.println("usuario = " + userInfo);
+                
+                
                 request.getRequestDispatcher("clientes.jsp").forward(request, response);
                 
 
             } else if (r == 0) {
-                
-                
+
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-               
-               
-                
+
             }
         }
 
-        }
-
     }
+    
 
-
+}

@@ -19,7 +19,7 @@ public class ClienteDaoJDBC {
 
     private static final String SQL_DELETE = "DELETE FROM agenda WHERE ID_Agenda = ?";
 
-
+    private static final String SQL_SELECT_BY_USER ="SELECT * FROM login WHERE ID_User = ?";
    
 
     Login l = new Login();
@@ -70,8 +70,47 @@ public class ClienteDaoJDBC {
     }
     
 
-
-
+    /*Info  de Usuario*/
+ public List<Login> listarUsuario() {
+              
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Login log = null;        
+        List<Login> userInfo = new ArrayList<>();
+        
+        try {
+           
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_USER);
+            stmt.setInt(1, this.us);
+            rs = stmt.executeQuery();
+            /*Genera una lista con los datos que encuentra por la sentencia del sql*/
+            while (rs.next()) {
+                
+                int id_User = rs.getInt("ID_User");
+                String User = rs.getString("User");
+                String pass = rs.getString("Password");
+                String fName = rs.getString("Firts_Name");
+                String lasName = rs.getString("Last_Name");
+                String phone = rs.getString("Phone");
+                String address = rs.getString("Address");
+                
+                log = new Login(id_User, User, pass,fName,lasName,phone,address);
+                userInfo.add(log);
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERRORRRRR PRIMER EXCEPCIOONNNNNNNNNNNNNNNNNNNNN");
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+            
+        }
+        return userInfo;
+    }
 /*buscar por id*/
     public Cliente encontrar(Cliente cliente) {
         Connection conn = null;

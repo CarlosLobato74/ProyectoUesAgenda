@@ -10,8 +10,8 @@ import java.util.List;
 public class LoginDaoJDBC implements validar {
 
     
-    String sql = "Select * from login WHERE  User=? and Password =?";
-
+    String sql = "Select * from login WHERE  User=? and Password = MD5(?)";
+    
     @Override
     public int validar(Login log) {
 
@@ -33,7 +33,7 @@ public class LoginDaoJDBC implements validar {
                 log.setUserId(rs.getInt("ID_User"));
                 log.setUser(rs.getString("User"));
                 log.setPassword(rs.getString("Password"));
-                System.out.println("este es el usuario: "+ log.getUserId());
+                
             }
             if (r > 0) {
                 return 1;
@@ -44,7 +44,7 @@ public class LoginDaoJDBC implements validar {
             return 0;
         }
     }
-
+    
    
     
 
