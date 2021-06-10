@@ -11,8 +11,7 @@ public class ClienteDaoJDBC {
     private static final String SQL_SELECT_BY_ID = "SELECT ID_User, ID_agenda, Descripcion, Fecha, Hora"
             + "FROM agenda WHERE ID_Agenda = ?";
 
-    private static final String SQL_INSERT = "INSERT INTO agenda(Descripcion,Fecha,Hora)"
-            + " VALUES(?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO agenda(ID_User, Descripcion, Fecha, Hora) VALUES(?, ?, ?, ?)";
 
     private static final String SQL_UPDATE = "UPDATE agenda"
             + " SET Descripcion=?, Fecha=?, Hora=? WHERE ID_Agenda=?";
@@ -151,9 +150,10 @@ public class ClienteDaoJDBC {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(0, cliente.getDescripcion());
-            stmt.setString(1, cliente.getFecha());
-            stmt.setString(2, cliente.getHora());
+            stmt.setInt(1,this.us);
+            stmt.setString(2, cliente.getDescripcion());
+            stmt.setString(3, cliente.getFecha());
+            stmt.setString(4, cliente.getHora());
             rows = stmt.executeUpdate();
 
         } catch (SQLException ex) {

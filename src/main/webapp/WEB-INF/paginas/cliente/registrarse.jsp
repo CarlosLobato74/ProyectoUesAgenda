@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="modal fade"  id="registrarseModal">
     <div class="modal-dialog ">
@@ -15,12 +15,12 @@
                 <div class="modal-body text-start">
                     <div class="mb-3" >
                         <label class="form-label"  for="usuario">Usuario:</label>
-                        <input type="text" class="form-control" name="usuario" required>
+                        <input type="text" class="form-control" name="usuario" required placeholder="Tiene que ser unico">
 
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre" required>
+                        <input type="text" class="form-control" name="nombre" required >
 
                     </div>
                     <div class="mb-3">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="telefono">Telefono:</label>
-                        <input type="number" min="10000000" max="99999999" class="form-control" name="telefono" required="*">
+                        <input type="number"  class="form-control" name="telefono" required placeholder="0000-0000">
 
                     </div>
                     <div class="mb-3">

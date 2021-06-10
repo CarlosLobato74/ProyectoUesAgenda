@@ -24,6 +24,8 @@ public class Cliente {
         this.hora = hora;
     }
 
+   
+    
     public Cliente(int idUser, int idAgenda, String descripcion, String fecha, String hora) {
         this.idUser = idUser;
         this.idAgenda = idAgenda;

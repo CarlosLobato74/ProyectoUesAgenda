@@ -8,8 +8,8 @@
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="text-center">Eventos agendados</h4>
-                            
+                        <h4 class="text-center">Bitacora de Eventos Agendados</h4>
+
                     </div>
                     <table class="table table-dark ">
                         <thead>
@@ -23,27 +23,28 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
+                           
                             <c:forEach var="clientes" items="${clientes}" varStatus="status">
+                                
                                 <tr> 
                                     <th scope="row">${status.count}</th>
                                     <td>${clientes.descripcion}</td>
                                     <td>${clientes.fecha}</td>
                                     <td>${clientes.hora}</td>
-
                                     <td>
                                         <a href="${pageContext.request.contextPath}/ServletControlador?accion=editar&idAgenda=${clientes.idAgenda}" 
                                            class="btn btn-secondary">Editar *.*
                                         </a>
-
                                     </td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/ServletControlador?accion=eliminar&idAgenda=${clientes.idAgenda}" 
                                            class="btn btn-secondary">Eliminar :x
                                         </a>
-
                                     </td>
                                 </tr>
                             </c:forEach> 
+                                
                         </tbody>
                     </table>
                 </div>
@@ -54,7 +55,7 @@
 
                         <img class="mb4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="" width="175" height="150">
                         <c:forEach var="logins" items="${logins}">
-                           
+
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item bg-dark text-white">Usuario Informacion</li>
@@ -64,10 +65,10 @@
                                 <li class="list-group-item">Apellido: ${logins.lastN}</li>
                                 <li class="list-group-item">Telefono: <br>${logins.phone}</li>
                                 <li class="list-group-item">Direccion:<br>${logins.address}</li>
-                                
+
                             </ul><br>
                             <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=editar&userId=${logins.userId}">Editar Usuario</a><br><br>
-                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=eliminar&userId=${logins.userId}">Eliminar Usuario</a>
+                            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=eliminar&userId=${logins.userId}">Eliminar Usuario</a>
                         </c:forEach>
 
 

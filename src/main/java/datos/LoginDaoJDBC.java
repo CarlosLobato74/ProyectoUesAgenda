@@ -72,7 +72,34 @@ public class LoginDaoJDBC implements validar {
         }
         return rows;
     }
-    /*Buscar si ya existe*/
-    
 
+    /*Buscar si ya existe*/
+
+    public int verSiExiste(Login log) {
+
+        Connection con;
+        Conexion cn = new Conexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        int r = 0;
+        try {
+
+            con = cn.getConnection();
+            ps = con.prepareStatement(SQL_SELECT_BY_USER);
+            ps.setString(1, log.getUser());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                r++;
+                System.out.println("LO ENCONTREEEEEEEEEEE TIENE QUE CAMBIAR USUARIO");
+            }
+            if (r > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }
