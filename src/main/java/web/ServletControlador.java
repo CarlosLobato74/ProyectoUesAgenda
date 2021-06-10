@@ -139,7 +139,7 @@ public class ServletControlador extends HttpServlet {
         String hora = request.getParameter("hora");
         Cliente cliente = new Cliente(descripcion, fecha, hora);
         int agregando = new ClienteDaoJDBC().insertar(cliente);
-        request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);
+        this.accionDefault(request, response);
         
     }
  /*Editar evento*/
