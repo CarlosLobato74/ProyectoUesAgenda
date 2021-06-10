@@ -15,7 +15,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Fecha</th>
                                 <th scope="col">Hora</th>
@@ -24,10 +23,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="clientes" items="${clientes}">
+                            <c:forEach var="clientes" items="${clientes}" varStatus="status">
                                 <tr> 
-                                    <th scope="row"></th>
-                                   
+                                    <th scope="row">${status.count}</th>
                                     <td>${clientes.descripcion}</td>
                                     <td>${clientes.fecha}</td>
                                     <td>${clientes.hora}</td>

@@ -17,40 +17,47 @@
     </head>
     <body class="text-center"> 
 
-        <!--Contenedor del formulario-->
+        <!--Contenedor del formulario
+        <div class="w-75">
+            <div class="w-50">
+                <div class="w-25 container p-1 position-absolute top-50 start-50 translate-middle">-->
 
-        <div class="w-25 container p-1 position-absolute top-50 start-50 translate-middle">
+        <div class="row">
+            <div class="col-md-3 mb-3 position-absolute top-50 start-50 translate-middle">
+                <div class="card-body">            
 
-            </br>
-            <img class="mb4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="" width="175" height="150">
-            <!--Formulario-->
-            <form name="form"  class="was-validated" action="/UesWebProyecto/ServletControlador" method="POST">
+                    </br>
+                    <img class="mb4 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="" width="175" height="150">
+                    <!--Formulario-->
+                    <form name="form"  class="was-validated" action="/UesWebProyecto/ServletControlador" method="POST">
 
 
-                <h2 class="fw-bold text-center">Iniciar Sesión</h2>
+                        <h2 class="fw-bold text-center">Iniciar Sesión</h2>
 
-                <div class="form-floating">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="userId" placeholder="Usuario" name="userId" required>
+                            <label for="userId" class="form-label">Usuario:</label>
+                        </div></br>
+                        <div class="form-floating ">
+                            <input type="password" class="form-control" id="password" placeholder="Contrasenia"  name="password" required>
+                            <label for="password" class="form-label">Contrasenia:</label>
+                        </div>
+                        </br></br>
+                        <input class="w-100 btn btn-lg btn-primary" type="submit" value='Ingresar' name="accion"></br></br>
 
-                    <input type="text" class="form-control" id="userId" placeholder="Usuario" name="userId" required>
-                    <label for="userId" class="form-label">Usuario:</label>
-                </div></br></br>
-                <div class="form-floating ">
+                    </form>
+                    <section id="actions" >
+                        <button   class="btn btn-lg btn-primary w-100" 
+                                  data-bs-toggle="modal" data-bs-target="#registrarseModal">
+                            <i class="fas fa-plus"></i> Registrarse
+                        </button>
+                    </section>
 
-                    <input type="password" class="form-control" id="password" placeholder="Contrasenia"  name="password" required>
-                    <label for="password" class="form-label">Contrasenia:</label>
+
+
                 </div>
-                </br></br>
-                <input class="w-100 btn btn-lg btn-primary" type="submit" value='Ingresar' name="accion"></br></br>
-
-            </form>
-            <section id="actions" >
-                <button   class="btn btn-lg btn-primary w-100" 
-                          data-bs-toggle="modal" data-bs-target="#registrarseModal">
-                    <i class="fas fa-plus"></i> Registrarse
-                </button>
-            </section>
+            </div>
         </div>
-
 
         <jsp:include page="WEB-INF/paginas/cliente/registrarse.jsp"/>
         <!-- Separate Popper and Bootstrap JS -->

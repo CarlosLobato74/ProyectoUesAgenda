@@ -20,30 +20,54 @@ public class ServletControlador extends HttpServlet {
             throws ServletException, IOException {
 
         String accion = request.getParameter("accion");
-        
-        /*Pasa parametros ingresados a atributos y los manda a validad*/
-        if (accion.equals("Ingresar")) {
-            String us = request.getParameter("userId");
-            String ps = request.getParameter("password");
-            l.setUser(us);
-            l.setPassword(ps);
 
-            r = dao.validar(l);
-            /*Compureba el resultado de la validacion si encontro al usuario sera mayor a 0*/
-            if (r >= 1) {
+        if (accion != null) {
+            switch (accion) {
+                case "Ingresar": {
+                    this.iniciarSesion(request, response);
+                }
+                break;
+                case "registrar": {
+                    this.registrarse(request, response);
 
-                this.accionDefault(request, response);
-
-            } else if (r == 0) {
-
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
+                }
+                default: {
+                    
+                    response.sendRedirect("index.jsp");
+                }
 
             }
+        } else {
+           
+            response.sendRedirect("index.jsp");
         }
 
     }
+    
+    /*Iniciar Sesion*/
+     public void iniciarSesion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+     /*Pasa parametros ingresados a atributos y los manda a validad*/
+                    String us = request.getParameter("userId");
+                    String ps = request.getParameter("password");
+                    l.setUser(us);
+                    l.setPassword(ps);
 
-    /*accion default Para respuesta del JSP*/
+                    r = dao.validar(l);
+                    /*Compureba el resultado de la validacion si encontro al usuario sera mayor a 0*/
+                    if (r >= 1) {
+
+                        this.accionDefault(request, response);
+
+                    } else if (r == 0) {
+
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+
+                    }
+     }
+    
+    /*Accion default Para respuesta del JSP*/
     public void accionDefault(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -53,10 +77,31 @@ public class ServletControlador extends HttpServlet {
         /*info del usuario*/
         List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
         request.setAttribute("logins", userInfo);
-        System.out.println("usuario = " + userInfo);
 
         request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);
-
+        
     }
+    
+    /*Hace el registro hacia la base de datos*/
+    public void registrarse(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        /*Recuperar valores del formulario*/
 
+        String usuario = request.getParameter("usuario");
+        String nombre = request.getParameter("nombre");
+        String contra = request.getParameter("contrasenia");
+        String apellido = request.getParameter("contrasenia");
+        String telefono = request.getParameter("telefono");
+        String direccion = request.getParameter("direccion");
+
+        /*agregamos los parametros*/
+        Login registrarse = new Login(usuario, contra, nombre, apellido, telefono, direccion);
+        /*Insertamos en la base de datos*/
+        int registrandose = new LoginDaoJDBC().insertar(registrarse);
+        System.out.println("registros ingresados: " + registrandose);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        response.sendRedirect("index.jsp");
+        
+       
+    }
 }
