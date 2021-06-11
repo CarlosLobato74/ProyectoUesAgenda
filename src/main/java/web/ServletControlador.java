@@ -10,17 +10,42 @@ import dominio.Cliente;
 
 @WebServlet("/ServletControlador")
 public class ServletControlador extends HttpServlet {
-
+    
     LoginDaoJDBC dao = new LoginDaoJDBC();
     Login l = new Login();
     int r;
-
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+        if (accion != null) {
+            switch (accion) {
+                case "editarAgenda": {
+                    this.editarEvento(request, response);
+                    break;
+                }
+                case "editarUsuario": {
+                    
+                }
+                default: {
+                    
+                    response.sendRedirect("index.jsp");
+                }
+                
+            }
+        } else {
+            
+            response.sendRedirect("index.jsp");
+        }
+    }
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String accion = request.getParameter("accion");
-
+        
         if (accion != null) {
             switch (accion) {
                 case "Ingresar": {
@@ -29,7 +54,7 @@ public class ServletControlador extends HttpServlet {
                 break;
                 case "registrar": {
                     this.registrarse(request, response);
-
+                    
                     break;
                 }
                 case "agregarEvento": {
@@ -37,16 +62,16 @@ public class ServletControlador extends HttpServlet {
                     break;
                 }
                 default: {
-
+                    
                     response.sendRedirect("index.jsp");
                 }
-
+                
             }
         } else {
-
-            response.sendRedirect("index.jsp");
+            
+            this.accionDefault(request, response);
         }
-
+        
     }
 
     /*METODOS DE USUARIO*/
@@ -54,16 +79,17 @@ public class ServletControlador extends HttpServlet {
  /*Accion default Para respuesta del JSP*/
     public void accionDefault(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession sesion = request.getSession();
         /*Info de la agenda*/
         List<Cliente> clientes = new ClienteDaoJDBC().listar();
-        request.setAttribute("clientes", clientes);
+        sesion.setAttribute("clientes", clientes);
         /*info del usuario*/
         List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
-        request.setAttribute("logins", userInfo);
-
-        request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);
-
+        
+        sesion.setAttribute("logins", userInfo);
+        response.sendRedirect("clientes.jsp");
+        /*request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);*/
+        
     }
 
     /*Iniciar Sesion*/
@@ -74,16 +100,17 @@ public class ServletControlador extends HttpServlet {
         String ps = request.getParameter("password");
         l.setUser(us);
         l.setPassword(ps);
-
+        
         r = dao.validar(l);
         /*Compureba el resultado de la validacion si encontro al usuario sera mayor a 0*/
         if (r >= 1) {
-
+            
             this.accionDefault(request, response);
-
+            
         } else if (r == 0) {
-
+            
             request.getRequestDispatcher("index.jsp").forward(request, response);
+            
         }
     }
 
@@ -98,7 +125,7 @@ public class ServletControlador extends HttpServlet {
         String apellido = request.getParameter("contrasenia");
         String telefono = request.getParameter("telefono");
         String direccion = request.getParameter("direccion");
-
+        
         l.setUser(usuario);
         r = dao.verSiExiste(l);
         if (r > 0) {
@@ -114,19 +141,19 @@ public class ServletControlador extends HttpServlet {
             request.getRequestDispatcher("index.jsp").forward(request, response);
             
         }
-
+        
     }
 
     /*Editandar Usuario*/
     public void editarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     /*Eliminar Usuario*/
     public void eliminarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     /*METODOS DE EVENTOS*/
@@ -142,8 +169,22 @@ public class ServletControlador extends HttpServlet {
         this.accionDefault(request, response);
         
     }
- /*Editar evento*/
- /*Eliminar evento*/
+
+    /*Editar evento*/
+    public void editarEvento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+        int idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
+        
+        Cliente cliente = new ClienteDaoJDBC().encontrar(new Cliente(idAgenda));
+        request.setAttribute("cliente", cliente);
+        
+        String jspEditarAgenda = "/WEB-INF/paginas/cliente/editar-Agenda.jsp";
+        request.getRequestDispatcher(jspEditarAgenda).forward(request, response);
+        
+    }
+    /*Eliminar evento*/
  /*METODO DEL LOG*/
  /*Insertar*/
  /*Limpiar*/

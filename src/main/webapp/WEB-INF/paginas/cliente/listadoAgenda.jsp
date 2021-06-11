@@ -33,12 +33,12 @@
                                     <td>${clientes.fecha}</td>
                                     <td>${clientes.hora}</td>
                                     <td>
-                                        <a href="${pageContext.request.contextPath}/ServletControlador?accion=editar&idAgenda=${clientes.idAgenda}" 
+                                        <a href="${pageContext.request.contextPath}/ServletControlador?accion=editarAgenda&idAgenda=${clientes.idAgenda}" 
                                            class="btn btn-secondary">Editar *.*
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="${pageContext.request.contextPath}/ServletControlador?accion=eliminar&idAgenda=${clientes.idAgenda}" 
+                                        <a href="${pageContext.request.contextPath}/ServletControlador?accion=eliminarAgenda&idAgenda=${clientes.idAgenda}" 
                                            class="btn btn-secondary">Eliminar :x
                                         </a>
                                     </td>
@@ -67,8 +67,8 @@
                                 <li class="list-group-item">Direccion:<br>${logins.address}</li>
 
                             </ul><br>
-                            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=editar&userId=${logins.userId}">Editar Usuario</a><br><br>
-                            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=eliminar&userId=${logins.userId}">Eliminar Usuario</a>
+                            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=editarUsuario&userId=${logins.userId}">Editar Usuario</a><br><br>
+                            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=eliminarUsuario&userId=${logins.userId}">Eliminar Usuario</a>
                         </c:forEach>
 
 

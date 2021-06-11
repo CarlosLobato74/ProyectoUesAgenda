@@ -14,18 +14,19 @@ public class Cliente {
         
     }
 
-    public Cliente(int idUser) {
-        this.idUser = idUser;
+    public Cliente(int idAgenda) {
+        this.idAgenda = idAgenda;
     }
-
+    
+    
+    
+    /*Para agregar un evento */
     public Cliente(String descripcion, String fecha, String hora) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
     }
-
-   
-    
+    /*Para editar un evento*/   
     public Cliente(int idUser, int idAgenda, String descripcion, String fecha, String hora) {
         this.idUser = idUser;
         this.idAgenda = idAgenda;

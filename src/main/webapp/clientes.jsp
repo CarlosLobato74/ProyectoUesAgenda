@@ -13,11 +13,11 @@
     </head>
     <body>
         <!--Cabecero-->
-        <jsp:include page="/WEB-INF/paginas/comunes/cabecero.jsp"/>
+        <jsp:include page="WEB-INF/paginas/comunes/cabecero.jsp"/>
         <!--Listado Agenda-->
-        <jsp:include page="/WEB-INF/paginas/cliente/listadoAgenda.jsp"/>
+        <jsp:include page="WEB-INF/paginas/cliente/listadoAgenda.jsp"/>
         <!--PiedePagina-->
-        <jsp:include page="/WEB-INF/paginas/comunes/piedepagina.jsp"/>
+        <jsp:include page="WEB-INF/paginas/comunes/piedepagina.jsp"/>
         
         
         <!-- Separate Popper and Bootstrap JS -->
