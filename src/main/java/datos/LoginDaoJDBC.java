@@ -31,6 +31,7 @@ public class LoginDaoJDBC implements validar {
 
             while (rs.next()) {
                 r++;
+                System.out.println("encontrado listo para registrar");
                 log.setUserId(rs.getInt("ID_User"));
                 log.setUser(rs.getString("User"));
                 log.setPassword(rs.getString("Password"));
