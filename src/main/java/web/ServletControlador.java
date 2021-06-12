@@ -2,19 +2,20 @@ package web;
 
 import datos.*;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import dominio.Cliente;
+import java.text.SimpleDateFormat;
 
 @WebServlet("/ServletControlador")
 public class ServletControlador extends HttpServlet {
-    
+
     LoginDaoJDBC dao = new LoginDaoJDBC();
     Login l = new Login();
     int r;
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -25,53 +26,69 @@ public class ServletControlador extends HttpServlet {
                     this.editarEvento(request, response);
                     break;
                 }
-                case "editarUsuario": {
-                    
+                case "eliminarEvento": {
+                    System.out.println("llamare a eliminar");
+                    this.eliminarEvento(request, response);
+                    break;
+                }
+                case "cerrarSesion": {
+                    System.out.println("Cerrando Sesion");
+                    HttpSession sesion = request.getSession();
+
+                    System.out.println("------------");
+
+                    sesion.invalidate();
+
                 }
                 default: {
-                    
+
                     response.sendRedirect("index.jsp");
                 }
-                
+
             }
         } else {
-            
+
             response.sendRedirect("index.jsp");
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String accion = request.getParameter("accion");
-        
+
         if (accion != null) {
             switch (accion) {
                 case "Ingresar": {
                     this.iniciarSesion(request, response);
+                    break;
                 }
-                break;
                 case "registrar": {
                     this.registrarse(request, response);
-                    
                     break;
                 }
                 case "agregarEvento": {
                     this.agregarEvento(request, response);
                     break;
                 }
-                default: {
-                    
-                    response.sendRedirect("index.jsp");
+                case "modificarEvento": {
+                    this.actualizarEvento(request, response);
+                    break;
                 }
-                
+
+                default: {
+
+                    response.sendRedirect("index.jsp");
+
+                }
+
             }
         } else {
-            
+
             this.accionDefault(request, response);
         }
-        
+
     }
 
     /*METODOS DE USUARIO*/
@@ -85,32 +102,34 @@ public class ServletControlador extends HttpServlet {
         sesion.setAttribute("clientes", clientes);
         /*info del usuario*/
         List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
-        
+
         sesion.setAttribute("logins", userInfo);
         response.sendRedirect("clientes.jsp");
         /*request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);*/
-        
+
     }
 
     /*Iniciar Sesion*/
     public void iniciarSesion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         /*Pasa parametros ingresados a atributos y los manda a validad*/
         String us = request.getParameter("userId");
         String ps = request.getParameter("password");
         l.setUser(us);
         l.setPassword(ps);
-        
+
         r = dao.validar(l);
         /*Compureba el resultado de la validacion si encontro al usuario sera mayor a 0*/
         if (r >= 1) {
-            
+           
             this.accionDefault(request, response);
             
+
         } else if (r == 0) {
-            
+
             request.getRequestDispatcher("index.jsp").forward(request, response);
-            
+
         }
     }
 
@@ -125,7 +144,7 @@ public class ServletControlador extends HttpServlet {
         String apellido = request.getParameter("contrasenia");
         String telefono = request.getParameter("telefono");
         String direccion = request.getParameter("direccion");
-        
+
         l.setUser(usuario);
         r = dao.verSiExiste(l);
         if (r > 0) {
@@ -139,53 +158,81 @@ public class ServletControlador extends HttpServlet {
             int registrandose = new LoginDaoJDBC().insertar(registrarse);
             System.out.println("registros ingresados: " + registrandose);
             request.getRequestDispatcher("index.jsp").forward(request, response);
-            
+
         }
-        
+
     }
 
     /*Editandar Usuario*/
     public void editarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /*Eliminar Usuario*/
     public void eliminarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /*METODOS DE EVENTOS*/
  /*Agregar nueva evento*/
     public void agregarEvento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String descripcion = request.getParameter("descripcion");
         String fecha = request.getParameter("fecha");
         String hora = request.getParameter("hora");
         Cliente cliente = new Cliente(descripcion, fecha, hora);
         int agregando = new ClienteDaoJDBC().insertar(cliente);
         this.accionDefault(request, response);
-        
+
     }
 
     /*Editar evento*/
     public void editarEvento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+
         int idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
-        
+
         Cliente cliente = new ClienteDaoJDBC().encontrar(new Cliente(idAgenda));
+        System.out.println("ESTAAAAAAAAAA ES LA AGENDAAAAAAAAA: " + cliente.getIdAgenda());
         request.setAttribute("cliente", cliente);
-        
-        String jspEditarAgenda = "/WEB-INF/paginas/cliente/editar-Agenda.jsp";
+
+        String jspEditarAgenda = "/WEB-INF/paginas/cliente/actualizarAgenda.jsp";
         request.getRequestDispatcher(jspEditarAgenda).forward(request, response);
-        
+
     }
+
+    /*Actualizar Evento*/
+    public void actualizarEvento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        int idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
+        String descripcion = request.getParameter("descripcion");
+        String fecha = request.getParameter("fecha");
+        String hora = request.getParameter("hora");
+        Cliente cliente = new Cliente(idAgenda, descripcion, fecha, hora);
+        int agregando = new ClienteDaoJDBC().actualizar(cliente);
+        this.accionDefault(request, response);
+
+    }
+
     /*Eliminar evento*/
- /*METODO DEL LOG*/
+    public void eliminarEvento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("Preparandose Paa ELiminar");
+        int idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
+        System.out.println("ID OBTENIDO");
+        Cliente cliente = new Cliente(idAgenda);
+        System.out.println("ID ASIGNADO");
+        int agregando = new ClienteDaoJDBC().eliminar(cliente);
+        System.out.println("Orden Eliminar Ejectutada esperando respuesta");
+        this.accionDefault(request, response);
+
+    }
+
+    /*METODO DEL LOG*/
  /*Insertar*/
  /*Limpiar*/
 }

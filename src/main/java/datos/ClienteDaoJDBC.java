@@ -12,9 +12,9 @@ public class ClienteDaoJDBC {
 
     private static final String SQL_INSERT = "INSERT INTO agenda(ID_User, Descripcion, Fecha, Hora) VALUES(?, ?, ?, ?)";
 
-    private static final String SQL_UPDATE = "UPDATE agenda SET Descripcion=?, Fecha=?, Hora=? WHERE ID_Agenda=?";
+    private static final String SQL_UPDATE = "UPDATE agenda SET Descripcion=?, Fecha=?, Hora=? WHERE agenda.ID_Agenda=?";
 
-    private static final String SQL_DELETE = "DELETE FROM agenda WHERE ID_Agenda = ?";
+    private static final String SQL_DELETE = "DELETE FROM agenda WHERE agenda.ID_Agenda = ?";
 
     private static final String SQL_SELECT_BY_USER = "SELECT * FROM login WHERE ID_User = ?";
 
@@ -116,15 +116,15 @@ public class ClienteDaoJDBC {
             stmt.setInt(1, this.us);
             stmt.setInt(2, cliente.getIdAgenda());
             rs = stmt.executeQuery();
-            rs.absolute(1);
             while(rs.next()){
-                String descripcion = rs.getString("Descripcion");
+                System.out.println("LO ENCONTROOOOOOOOOOOOOOO");
+            String descripcion = rs.getString("Descripcion");
             String fecha = rs.getString("Fecha");
             String hora = rs.getString("Hora");
 
             cliente.setDescripcion(descripcion);
             cliente.setFecha(fecha);
-            cliente.getHora();
+            cliente.setHora(hora);
             }
             
 
@@ -174,10 +174,11 @@ public class ClienteDaoJDBC {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-
+            
             stmt.setString(1, cliente.getDescripcion());
             stmt.setString(2, cliente.getFecha());
             stmt.setString(3, cliente.getHora());
+            
             stmt.setInt(4, cliente.getIdAgenda());
             rows = stmt.executeUpdate();
 
@@ -198,12 +199,14 @@ public class ClienteDaoJDBC {
         int rows = 0;
 
         try {
+            System.out.println("Nivel 1 de 2 pasado");
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, cliente.getIdAgenda());
             rows = stmt.executeUpdate();
-
+            System.out.println("Nivel 2 de 2 pasado");
         } catch (SQLException ex) {
+            System.out.println("Nivel 2 de 2 Fallido");
             ex.printStackTrace(System.out);
         } finally {
 

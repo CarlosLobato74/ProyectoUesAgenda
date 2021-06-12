@@ -19,7 +19,7 @@
                                 <th scope="col">Fecha</th>
                                 <th scope="col">Hora</th>
                                 <th scope="col">Editar</th>
-                                <th scope="col">Eliminar</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -37,11 +37,7 @@
                                            class="btn btn-secondary">Editar *.*
                                         </a>
                                     </td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/ServletControlador?accion=eliminarAgenda&idAgenda=${clientes.idAgenda}" 
-                                           class="btn btn-secondary">Eliminar :x
-                                        </a>
-                                    </td>
+                                    
                                 </tr>
                             </c:forEach> 
                                 

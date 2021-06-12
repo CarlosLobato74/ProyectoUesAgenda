@@ -17,6 +17,14 @@ public class Cliente {
     public Cliente(int idAgenda) {
         this.idAgenda = idAgenda;
     }
+
+    public Cliente(int idAgenda, String descripcion, String fecha, String hora) {
+        this.idAgenda = idAgenda;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.hora = hora;
+    }
+    
     
     
     
@@ -34,6 +42,8 @@ public class Cliente {
         this.fecha = fecha;
         this.hora = hora;
     }
+    
+    
 /*Metodos get and set*/
     public int getIdUser() {
         return idUser;
