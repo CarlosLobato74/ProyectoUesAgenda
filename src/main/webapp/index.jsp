@@ -31,9 +31,9 @@
                     <!--Formulario-->
                     <form name="form"  class="was-validated" action="/UesWebProyecto/ServletControlador" method="POST">
 
-
+                        
                         <h2 class="fw-bold text-center">Iniciar Sesión</h2>
-
+                          
                         <div class="form-floating">
                             <input type="text" class="form-control" id="userId" placeholder="Usuario" name="userId" required>
                             <label for="userId" class="form-label">Usuario:</label>
@@ -47,7 +47,7 @@
 
                     </form>
                     <section id="actions" >
-                        <button   class="btn btn-lg btn-primary w-100" 
+                        <button class="btn btn-lg btn-primary w-100" 
                                   data-bs-toggle="modal" data-bs-target="#registrarseModal">
                             <i class="fas fa-plus"></i> Registrarse
                         </button>

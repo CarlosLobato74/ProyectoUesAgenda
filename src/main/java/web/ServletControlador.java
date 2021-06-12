@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import dominio.Cliente;
-
+import javax.servlet.RequestDispatcher;
 
 @WebServlet("/ServletControlador")
 public class ServletControlador extends HttpServlet {
@@ -18,7 +18,7 @@ public class ServletControlador extends HttpServlet {
     String fechaSalida;
     int r;
     LogsUsuario archivo = new LogsUsuario();
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class ServletControlador extends HttpServlet {
                 case "cerrarSesion": {
                     System.out.println("Cerrando Sesion");
                     Date salida = new Date();
-                    String salidas = salida.toString() +"";
+                    String salidas = salida.toString() + "";
                     this.fechaSalida = salidas;
                     this.capturarEntrada();
                     HttpSession sesion = request.getSession();
@@ -101,12 +101,12 @@ public class ServletControlador extends HttpServlet {
     public void accionDefault(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sesion = request.getSession();
-        
+
         Date entrada = new Date();
-        
+
         String fecha = entrada.toString() + "";
         this.fechaEntrada = fecha;
-        
+
         System.out.println("Aqui imprime la entrada: " + entrada.toString());
         /*Info de la agenda*/
         List<Cliente> clientes = new ClienteDaoJDBC().listar();
@@ -114,14 +114,13 @@ public class ServletControlador extends HttpServlet {
         /*info del usuario*/
         List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
         sesion.setAttribute("logins", userInfo);
-        
+
         List<LogsUsuario> logsInfo = new ClienteDaoJDBC().listarLog();
         sesion.setAttribute("logs", logsInfo);
-        
-        response.sendRedirect("clientes.jsp");
-       
-        /*request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);*/
 
+        response.sendRedirect("clientes.jsp");
+
+        /*request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);*/
     }
 
     /*Iniciar Sesion*/
@@ -137,14 +136,15 @@ public class ServletControlador extends HttpServlet {
         r = dao.validar(l);
         /*Compureba el resultado de la validacion si encontro al usuario sera mayor a 0*/
         if (r >= 1) {
-           
+
             this.accionDefault(request, response);
-            
 
         } else if (r == 0) {
+            String noSeEncontro = "No se encontro el usuario";
+            request.setAttribute("noEncontrado", noSeEncontro);
+            //response.sendRedirect("index.jsp");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
 
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-            
         }
     }
 
@@ -191,11 +191,10 @@ public class ServletControlador extends HttpServlet {
     }
 
     /*METODOS DE EVENTOS*/
-    
-    /*Agregar nueva evento*/
+ /*Agregar nueva evento*/
     public void agregarEvento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String descripcion = request.getParameter("descripcion");
         String fecha = request.getParameter("fecha");
         String hora = request.getParameter("hora");
@@ -237,7 +236,7 @@ public class ServletControlador extends HttpServlet {
     /*Eliminar evento*/
     public void eliminarEvento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         int idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
         Cliente cliente = new Cliente(idAgenda);
         int agregando = new ClienteDaoJDBC().eliminar(cliente);
@@ -247,13 +246,11 @@ public class ServletControlador extends HttpServlet {
 
     /*METODO DEL LOG*/
  /*Insertar Registro al log*/
-    public void capturarEntrada(){
-        
+    public void capturarEntrada() {
+
         LogsUsuario cap = new LogsUsuario(fechaEntrada, fechaSalida);
         int agregando = new ClienteDaoJDBC().insertarArchivo(cap);
-        
-        
+
     }
- 
-    
+
 }
