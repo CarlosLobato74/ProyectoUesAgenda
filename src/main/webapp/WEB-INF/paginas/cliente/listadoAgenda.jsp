@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-center">Bitacora de Eventos Agendados</h4>
-                        
+
                     </div>
                     <table class="table table-dark">
                         <thead>
@@ -19,7 +19,7 @@
                                 <th scope="col">Fecha</th>
                                 <th scope="col">Hora</th>
                                 <th scope="col">Editar</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -36,7 +36,7 @@
                                     </td>
                                 </tr>
                             </c:forEach> 
-                           
+
                         </tbody>
                     </table>
                 </div>
@@ -46,8 +46,8 @@
                     <div class="card-body">
 
                         <img class="mb4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="" width="175" height="150">
-                       
-                        
+
+
                         <c:forEach var="logins" items="${logins}">
 
                             <ul class="list-group list-group-flush">
@@ -60,8 +60,10 @@
                                 <li class="list-group-item">Direccion:<br>${logins.address}</li>
 
                             </ul><br>
+                            <%-- 
                             <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=editarUsuario&userId=${logins.userId}">Editar Usuario</a><br><br>
                             <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletControlador?accion=eliminarUsuario&userId=${logins.userId}">Eliminar Usuario</a>
+                            --%>
                         </c:forEach>
 
 
