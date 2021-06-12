@@ -156,7 +156,7 @@ public class ServletControlador extends HttpServlet {
         String usuario = request.getParameter("usuario");
         String nombre = request.getParameter("nombre");
         String contra = request.getParameter("contrasenia");
-        String apellido = request.getParameter("contrasenia");
+        String apellido = request.getParameter("apellido");
         String telefono = request.getParameter("telefono");
         String direccion = request.getParameter("direccion");
 

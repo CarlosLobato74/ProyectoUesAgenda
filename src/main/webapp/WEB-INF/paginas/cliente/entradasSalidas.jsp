@@ -37,7 +37,7 @@
 
             </div> 
             <div class="modal-footer">
-                <h4>fin</h4>
+                <h4>Entradas y salidas del usuario</h4>
             </div>
         </div>
     </div>
