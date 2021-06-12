@@ -7,15 +7,18 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import dominio.Cliente;
-import java.text.SimpleDateFormat;
+
 
 @WebServlet("/ServletControlador")
 public class ServletControlador extends HttpServlet {
 
     LoginDaoJDBC dao = new LoginDaoJDBC();
     Login l = new Login();
+    String fechaEntrada;
+    String fechaSalida;
     int r;
-
+    LogsUsuario archivo = new LogsUsuario();
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,10 +36,11 @@ public class ServletControlador extends HttpServlet {
                 }
                 case "cerrarSesion": {
                     System.out.println("Cerrando Sesion");
+                    Date salida = new Date();
+                    String salidas = salida.toString() +"";
+                    this.fechaSalida = salidas;
+                    this.capturarEntrada();
                     HttpSession sesion = request.getSession();
-
-                    System.out.println("------------");
-
                     sesion.invalidate();
 
                 }
@@ -97,14 +101,25 @@ public class ServletControlador extends HttpServlet {
     public void accionDefault(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sesion = request.getSession();
+        
+        Date entrada = new Date();
+        
+        String fecha = entrada.toString() + "";
+        this.fechaEntrada = fecha;
+        
+        System.out.println("Aqui imprime la entrada: " + entrada.toString());
         /*Info de la agenda*/
         List<Cliente> clientes = new ClienteDaoJDBC().listar();
         sesion.setAttribute("clientes", clientes);
         /*info del usuario*/
         List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
-
         sesion.setAttribute("logins", userInfo);
+        
+        List<LogsUsuario> logsInfo = new ClienteDaoJDBC().listarLog();
+        sesion.setAttribute("logs", logsInfo);
+        
         response.sendRedirect("clientes.jsp");
+       
         /*request.getRequestDispatcher("WEB-INF/paginas/cliente/clientes.jsp").forward(request, response);*/
 
     }
@@ -129,7 +144,7 @@ public class ServletControlador extends HttpServlet {
         } else if (r == 0) {
 
             request.getRequestDispatcher("index.jsp").forward(request, response);
-
+            
         }
     }
 
@@ -149,7 +164,7 @@ public class ServletControlador extends HttpServlet {
         r = dao.verSiExiste(l);
         if (r > 0) {
             /*AQUI SE MANDARA EL MENSAJE DE NO DISPONIBLE*/
-            System.out.println("NO SE AGREGARA");
+            System.out.println("NO SE AGREGARA YA EXISTE");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else if (r == 0) {
             System.out.println("CREO QUE LO VOY A REGISTRAR ");
@@ -176,10 +191,11 @@ public class ServletControlador extends HttpServlet {
     }
 
     /*METODOS DE EVENTOS*/
- /*Agregar nueva evento*/
+    
+    /*Agregar nueva evento*/
     public void agregarEvento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String descripcion = request.getParameter("descripcion");
         String fecha = request.getParameter("fecha");
         String hora = request.getParameter("hora");
@@ -221,18 +237,23 @@ public class ServletControlador extends HttpServlet {
     /*Eliminar evento*/
     public void eliminarEvento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Preparandose Paa ELiminar");
+        
         int idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
-        System.out.println("ID OBTENIDO");
         Cliente cliente = new Cliente(idAgenda);
-        System.out.println("ID ASIGNADO");
         int agregando = new ClienteDaoJDBC().eliminar(cliente);
-        System.out.println("Orden Eliminar Ejectutada esperando respuesta");
         this.accionDefault(request, response);
 
     }
 
     /*METODO DEL LOG*/
- /*Insertar*/
- /*Limpiar*/
+ /*Insertar Registro al log*/
+    public void capturarEntrada(){
+        
+        LogsUsuario cap = new LogsUsuario(fechaEntrada, fechaSalida);
+        int agregando = new ClienteDaoJDBC().insertarArchivo(cap);
+        
+        
+    }
+ 
+    
 }

@@ -9,9 +9,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-center">Bitacora de Eventos Agendados</h4>
-
+                        
                     </div>
-                    <table class="table table-dark ">
+                    <table class="table table-dark">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -23,10 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                           
-                            <c:forEach var="clientes" items="${clientes}" varStatus="status">
-                                
+                            <c:forEach var="clientes" items="${clientes}" varStatus="status">    
                                 <tr> 
                                     <th scope="row">${status.count}</th>
                                     <td>${clientes.descripcion}</td>
@@ -37,10 +34,9 @@
                                            class="btn btn-secondary">Editar *.*
                                         </a>
                                     </td>
-                                    
                                 </tr>
                             </c:forEach> 
-                                
+                           
                         </tbody>
                     </table>
                 </div>
@@ -50,8 +46,9 @@
                     <div class="card-body">
 
                         <img class="mb4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="" width="175" height="150">
+                       
+                        
                         <c:forEach var="logins" items="${logins}">
-
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item bg-dark text-white">Usuario Informacion</li>

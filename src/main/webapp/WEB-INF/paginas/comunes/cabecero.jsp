@@ -11,6 +11,7 @@
 </div>
 
 <jsp:include page="/WEB-INF/paginas/cliente/agregar-evento.jsp"/>
+<jsp:include page="/WEB-INF/paginas/cliente/entradasSalidas.jsp"/>
 
 
 

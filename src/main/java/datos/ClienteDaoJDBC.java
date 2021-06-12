@@ -1,6 +1,7 @@
 package datos;
 
 import dominio.Cliente;
+import datos.LogsUsuario;
 import java.sql.*;
 import java.util.*;
 
@@ -17,7 +18,11 @@ public class ClienteDaoJDBC {
     private static final String SQL_DELETE = "DELETE FROM agenda WHERE agenda.ID_Agenda = ?";
 
     private static final String SQL_SELECT_BY_USER = "SELECT * FROM login WHERE ID_User = ?";
-
+    
+    private static final String INSERT_ENTRADA = "INSERT INTO log (ID_User,Entradas,Salidas) VALUES (?,?,?)";
+    
+    private static final String SQL_SELECT_LOG = "SELECT Entradas, Salidas FROM log WHERE ID_User = ?";
+    
     Login l = new Login();
 
     private int us = l.getUserId();
@@ -58,6 +63,7 @@ public class ClienteDaoJDBC {
             Conexion.close(conn);
 
         }
+        
         return clientes;
     }
 
@@ -215,4 +221,71 @@ public class ClienteDaoJDBC {
         }
         return rows;
     }
+    
+    
+    /*Logs*/
+    public int insertarArchivo(LogsUsuario logsU) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(INSERT_ENTRADA);
+            stmt.setInt(1, this.us);
+            stmt.setString(2,logsU.getEntradas());
+            stmt.setString(3, logsU.getSalidas());
+            
+            rows = stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        return rows;
+    }
+    
+    public List<LogsUsuario> listarLog() {
+        System.out.println("A EN LISTARRRRRRRRRRRRR");
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        LogsUsuario logusuario = null;
+        List<LogsUsuario> logsUs = new ArrayList<>();
+
+        try {
+            
+            conn = Conexion.getConnection();
+            
+            stmt = conn.prepareStatement(SQL_SELECT_LOG);
+            stmt.setInt(1, this.us);
+            rs = stmt.executeQuery();
+            /*Genera una lista con los datos que encuentra por la sentencia del sql*/
+            while (rs.next()) {
+                System.out.println("SI ENCONTREE LOS LOGS");
+                String entrada = rs.getString("Entradas");
+                String salida = rs.getString("Salidas");
+
+                logusuario = new LogsUsuario(entrada, salida);
+
+                logsUs.add(logusuario);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("FALLOOOOOOOOOOOOO EL ENCONTRAR");
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+
+        }
+        
+        return logsUs;
+    }
+    
+    
 }
