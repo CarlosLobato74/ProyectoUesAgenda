@@ -1,11 +1,10 @@
-
 package datos;
 
 public class Login {
+
     static int userId;
     private String user;
-    private String  password;
-    
+    private String password;
     private String firstN;
     private String lastN;
     private String phone;
@@ -17,7 +16,7 @@ public class Login {
     public Login(int userId) {
         this.userId = userId;
     }
-    
+
     public Login(int userId, String user, String password) {
         this.userId = userId;
         this.user = user;
@@ -32,7 +31,7 @@ public class Login {
         this.phone = phone;
         this.address = address;
     }
-    
+
     public Login(int userId, String user, String password, String firstN, String lastN, String phone, String address) {
         this.userId = userId;
         this.user = user;
@@ -83,7 +82,6 @@ public class Login {
         this.lastN = lastN;
     }
 
-   
     public String getPhone() {
         return phone;
     }
@@ -104,9 +102,5 @@ public class Login {
     public String toString() {
         return "Login{" + "userId=" + userId + ", user=" + user + ", password=" + password + ", firstN=" + firstN + ", LastN=" + lastN + ", phone=" + phone + ", address=" + address + '}';
     }
-    
-    
-    
-    
-   
+
 }

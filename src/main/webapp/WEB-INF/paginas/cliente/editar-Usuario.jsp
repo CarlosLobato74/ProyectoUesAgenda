@@ -1,4 +1,4 @@
-<!--FALTA MODIFICAR-->
+
 <div class="modal fade"  id="registrarseModal">
     <div class="modal-dialog ">
         <div class="modal-content">

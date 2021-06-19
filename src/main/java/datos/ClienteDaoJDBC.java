@@ -18,16 +18,16 @@ public class ClienteDaoJDBC {
     private static final String SQL_DELETE = "DELETE FROM agenda WHERE agenda.ID_Agenda = ?";
 
     private static final String SQL_SELECT_BY_USER = "SELECT * FROM login WHERE ID_User = ?";
-    
+
     private static final String INSERT_ENTRADA = "INSERT INTO log (ID_User,Entradas,Salidas) VALUES (?,?,?)";
-    
+
     private static final String SQL_SELECT_LOG = "SELECT Entradas, Salidas FROM log WHERE ID_User = ?";
-    
+
     Login l = new Login();
 
     private int us = l.getUserId();
 
-    /*Crea una lista con nuestros agendas creadas*/
+    //Crea una lista de las agenda del usuario
     public List<Cliente> listar() {
 
         Connection conn = null;
@@ -63,12 +63,11 @@ public class ClienteDaoJDBC {
             Conexion.close(conn);
 
         }
-        
+
         return clientes;
     }
 
-
-    /*Info  de Usuario*/
+    //Crea una lista de la informacion del usuario
     public List<Login> listarUsuario() {
 
         Connection conn = null;
@@ -99,7 +98,7 @@ public class ClienteDaoJDBC {
 
             }
         } catch (SQLException ex) {
-            System.out.println("ERRORRRRR PRIMER EXCEPCIOONNNNNNNNNNNNNNNNNNNNN");
+
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
@@ -122,21 +121,19 @@ public class ClienteDaoJDBC {
             stmt.setInt(1, this.us);
             stmt.setInt(2, cliente.getIdAgenda());
             rs = stmt.executeQuery();
-            while(rs.next()){
-                System.out.println("LO ENCONTROOOOOOOOOOOOOOO");
-            String descripcion = rs.getString("Descripcion");
-            String fecha = rs.getString("Fecha");
-            String hora = rs.getString("Hora");
+            while (rs.next()) {
 
-            cliente.setDescripcion(descripcion);
-            cliente.setFecha(fecha);
-            cliente.setHora(hora);
+                String descripcion = rs.getString("Descripcion");
+                String fecha = rs.getString("Fecha");
+                String hora = rs.getString("Hora");
+
+                cliente.setDescripcion(descripcion);
+                cliente.setFecha(fecha);
+                cliente.setHora(hora);
             }
-            
 
         } catch (SQLException ex) {
-            
-            System.out.println("FALLOOOOOOOOOO AL BUSCAR");
+
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
@@ -146,7 +143,7 @@ public class ClienteDaoJDBC {
         return cliente;
     }
 
-    /*INSERTAR */
+    //Inserta los datos de una agenda
     public int insertar(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -171,7 +168,7 @@ public class ClienteDaoJDBC {
         return rows;
     }
 
-    /*ACTUALIZAR*/
+    //Actualiza los datos de la agenda
     public int actualizar(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -180,11 +177,11 @@ public class ClienteDaoJDBC {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-            
+
             stmt.setString(1, cliente.getDescripcion());
             stmt.setString(2, cliente.getFecha());
             stmt.setString(3, cliente.getHora());
-            
+
             stmt.setInt(4, cliente.getIdAgenda());
             rows = stmt.executeUpdate();
 
@@ -198,21 +195,21 @@ public class ClienteDaoJDBC {
         return rows;
     }
 
-    /*ELIMINAR*/
+    //Elimina un evento agregado en la agenda
     public int eliminar(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
 
         try {
-            System.out.println("Nivel 1 de 2 pasado");
+
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, cliente.getIdAgenda());
             rows = stmt.executeUpdate();
-            System.out.println("Nivel 2 de 2 pasado");
+
         } catch (SQLException ex) {
-            System.out.println("Nivel 2 de 2 Fallido");
+
             ex.printStackTrace(System.out);
         } finally {
 
@@ -221,9 +218,8 @@ public class ClienteDaoJDBC {
         }
         return rows;
     }
-    
-    
-    /*Logs*/
+
+    //Agrega a la informacion de la entrada y salida del usuario
     public int insertarArchivo(LogsUsuario logsU) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -233,9 +229,9 @@ public class ClienteDaoJDBC {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(INSERT_ENTRADA);
             stmt.setInt(1, this.us);
-            stmt.setString(2,logsU.getEntradas());
+            stmt.setString(2, logsU.getEntradas());
             stmt.setString(3, logsU.getSalidas());
-            
+
             rows = stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -247,9 +243,10 @@ public class ClienteDaoJDBC {
         }
         return rows;
     }
-    
+
+    //Crea una lista de las entradas y salidas del usuario
     public List<LogsUsuario> listarLog() {
-        System.out.println("A EN LISTARRRRRRRRRRRRR");
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -257,15 +254,15 @@ public class ClienteDaoJDBC {
         List<LogsUsuario> logsUs = new ArrayList<>();
 
         try {
-            
+
             conn = Conexion.getConnection();
-            
+
             stmt = conn.prepareStatement(SQL_SELECT_LOG);
             stmt.setInt(1, this.us);
             rs = stmt.executeQuery();
             /*Genera una lista con los datos que encuentra por la sentencia del sql*/
             while (rs.next()) {
-                System.out.println("SI ENCONTREE LOS LOGS");
+
                 String entrada = rs.getString("Entradas");
                 String salida = rs.getString("Salidas");
 
@@ -275,7 +272,7 @@ public class ClienteDaoJDBC {
 
             }
         } catch (SQLException ex) {
-            System.out.println("FALLOOOOOOOOOOOOO EL ENCONTRAR");
+
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
@@ -283,9 +280,8 @@ public class ClienteDaoJDBC {
             Conexion.close(conn);
 
         }
-        
+
         return logsUs;
     }
-    
-    
+
 }

@@ -12,17 +12,16 @@ public class LoginDaoJDBC implements validar {
     String sql = "Select * from login WHERE  User=? and Password = MD5(?)";
     private static final String SQL_INSERTL = "INSERT INTO login(User,password,Firts_Name,Last_Name,Phone,Address) VALUES(?, MD5(?), ?, ?, ?, ?)";
     private static final String SQL_SELECT_BY_USER = "SELECT * FROM login WHERE User = ?";
-
+    
+    //Recupera los valores del usuario para buscarlo en la base de datos
     @Override
     public int validar(Login log) {
-
         Connection con;
         Conexion cn = new Conexion();
         PreparedStatement ps;
         ResultSet rs;
         int r = 0;
         try {
-
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, log.getUser());
@@ -35,7 +34,6 @@ public class LoginDaoJDBC implements validar {
                 log.setUserId(rs.getInt("ID_User"));
                 log.setUser(rs.getString("User"));
                 log.setPassword(rs.getString("Password"));
-
             }
             if (r > 0) {
                 return 1;
@@ -47,7 +45,7 @@ public class LoginDaoJDBC implements validar {
         }
     }
 
-    /*INSERTAR */
+    //Inserta un nuevo usuario despues del registro 
     public int insertar(Login login) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -74,8 +72,7 @@ public class LoginDaoJDBC implements validar {
         return rows;
     }
 
-    /*Buscar si ya existe*/
-
+    //Hace la validacion para que revise que no existe otro usuario igual
     public int verSiExiste(Login log) {
 
         Connection con;
@@ -89,10 +86,8 @@ public class LoginDaoJDBC implements validar {
             ps = con.prepareStatement(SQL_SELECT_BY_USER);
             ps.setString(1, log.getUser());
             rs = ps.executeQuery();
-
             while (rs.next()) {
                 r++;
-                System.out.println("LO ENCONTREEEEEEEEEEE TIENE QUE CAMBIAR USUARIO");
             }
             if (r > 0) {
                 return 1;

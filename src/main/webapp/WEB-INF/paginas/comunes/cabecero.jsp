@@ -1,4 +1,3 @@
-
 <div class=" bg-danger text-white text-center">
 
     <div class="container p-1 ">

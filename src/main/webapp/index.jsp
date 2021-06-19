@@ -1,11 +1,7 @@
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
-
         <title>Agenda Iniciar Sesion</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,15 +9,8 @@
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-
     </head>
-    <body class="text-center"> 
-
-        <!--Contenedor del formulario
-        <div class="w-75">
-            <div class="w-50">
-                <div class="w-25 container p-1 position-absolute top-50 start-50 translate-middle">-->
-
+    <body class="text-center">        
         <div class="row">
             <div class="col-md-3 mb-3 position-absolute top-50 start-50 translate-middle">
                 <div class="card-body">            
@@ -31,7 +20,6 @@
                     <!--Formulario-->
                     <form name="form"  class="was-validated" action="/UesWebProyecto/ServletControlador" method="POST">
 
-                        
                         <h2 class="fw-bold text-center">Iniciar Sesión</h2>
                           
                         <div class="form-floating">

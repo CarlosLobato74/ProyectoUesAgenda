@@ -42,7 +42,6 @@ public class ServletControlador extends HttpServlet {
                     this.capturarEntrada();
                     HttpSession sesion = request.getSession();
                     sesion.invalidate();
-
                 }
                 default: {
 
@@ -95,9 +94,10 @@ public class ServletControlador extends HttpServlet {
 
     }
 
-    /*METODOS DE USUARIO*/
+    
+    //METODOS DE USUARIO
 
- /*Accion default Para respuesta del JSP*/
+    /*Accion default Para respuesta del JSP*/
     public void accionDefault(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sesion = request.getSession();
@@ -143,7 +143,7 @@ public class ServletControlador extends HttpServlet {
             String noSeEncontro = "No se encontro el usuario";
             request.setAttribute("noEncontrado", noSeEncontro);
             //response.sendRedirect("index.jsp");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
 
         }
     }
@@ -178,20 +178,8 @@ public class ServletControlador extends HttpServlet {
 
     }
 
-    /*Editandar Usuario*/
-    public void editarUsuario(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    /*Eliminar Usuario*/
-    public void eliminarUsuario(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    /*METODOS DE EVENTOS*/
- /*Agregar nueva evento*/
+    //METODOS DE EVENTOS
+    /*Agregar nueva evento*/
     public void agregarEvento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
