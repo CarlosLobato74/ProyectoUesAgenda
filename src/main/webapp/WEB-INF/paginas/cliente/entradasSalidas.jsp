@@ -12,7 +12,7 @@
             </div>
             <div class="modal-body text-start">
                 
-                <table class="table table-dark">
+                <table class="table table-dark table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

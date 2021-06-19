@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LoginDaoJDBC implements validar {
 
-    String sql = "Select * from login WHERE  User=? and Password = MD5(?)";
+    String SQL_LOGIN = "Select * from login WHERE  User=? and Password = MD5(?)";
     private static final String SQL_INSERTL = "INSERT INTO login(User,password,Firts_Name,Last_Name,Phone,Address) VALUES(?, MD5(?), ?, ?, ?, ?)";
     private static final String SQL_SELECT_BY_USER = "SELECT * FROM login WHERE User = ?";
     
@@ -23,14 +23,13 @@ public class LoginDaoJDBC implements validar {
         int r = 0;
         try {
             con = cn.getConnection();
-            ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(SQL_LOGIN);
             ps.setString(1, log.getUser());
             ps.setString(2, log.getPassword());
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 r++;
-                System.out.println("encontrado listo para registrar");
                 log.setUserId(rs.getInt("ID_User"));
                 log.setUser(rs.getString("User"));
                 log.setPassword(rs.getString("Password"));
@@ -41,6 +40,7 @@ public class LoginDaoJDBC implements validar {
                 return 0;
             }
         } catch (Exception e) {
+            
             return 0;
         }
     }
@@ -63,6 +63,7 @@ public class LoginDaoJDBC implements validar {
             rows = stmt.executeUpdate();
 
         } catch (SQLException ex) {
+            System.out.println("---------------#Error al insertar el usuario al registro");
             ex.printStackTrace(System.out);
         } finally {
 

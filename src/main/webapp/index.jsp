@@ -21,7 +21,9 @@
                     <form name="form"  class="was-validated" action="/UesWebProyecto/ServletControlador" method="POST">
 
                         <h2 class="fw-bold text-center">Iniciar Sesión</h2>
-                          
+                        <h5 class="text-danger"><strong>${noSeEncontro}</strong></h5> 
+                        <h5 class="text-success"><strong>${registrado}</strong></h5> 
+                        <h5 class="text-warning"><strong>${nodisponible}</strong></h5> 
                         <div class="form-floating">
                             <input type="text" class="form-control" id="userId" placeholder="Usuario" name="userId" required>
                             <label for="userId" class="form-label">Usuario:</label>

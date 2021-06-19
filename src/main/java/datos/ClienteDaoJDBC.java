@@ -56,6 +56,7 @@ public class ClienteDaoJDBC {
 
             }
         } catch (SQLException ex) {
+            System.out.println("---------------#Error al crear la lista de usuarios");
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
@@ -98,7 +99,7 @@ public class ClienteDaoJDBC {
 
             }
         } catch (SQLException ex) {
-
+            System.out.println("---------------#Error en listar la informacion del usuario");
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
@@ -109,7 +110,7 @@ public class ClienteDaoJDBC {
         return userInfo;
     }
 
-    /*buscar por id*/
+    //Encuentra una lista especifica para modificarla
     public Cliente encontrar(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -133,7 +134,7 @@ public class ClienteDaoJDBC {
             }
 
         } catch (SQLException ex) {
-
+            System.out.println("---------------#Error al buscar por id");
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
@@ -159,6 +160,7 @@ public class ClienteDaoJDBC {
             rows = stmt.executeUpdate();
 
         } catch (SQLException ex) {
+            System.out.println("---------------#Error al Insertar datos en una agenda");
             ex.printStackTrace(System.out);
         } finally {
 
@@ -186,6 +188,7 @@ public class ClienteDaoJDBC {
             rows = stmt.executeUpdate();
 
         } catch (SQLException ex) {
+            System.out.println("---------------#Error al actualizar datos de la agenda");
             ex.printStackTrace(System.out);
         } finally {
 
@@ -209,7 +212,7 @@ public class ClienteDaoJDBC {
             rows = stmt.executeUpdate();
 
         } catch (SQLException ex) {
-
+            System.out.println("---------------#Error al eliminar un evento de la agenda");
             ex.printStackTrace(System.out);
         } finally {
 
@@ -235,6 +238,7 @@ public class ClienteDaoJDBC {
             rows = stmt.executeUpdate();
 
         } catch (SQLException ex) {
+            System.out.println("---------------#Error al agregar entrada y salida en el Log");
             ex.printStackTrace(System.out);
         } finally {
 
@@ -272,7 +276,7 @@ public class ClienteDaoJDBC {
 
             }
         } catch (SQLException ex) {
-
+            System.out.println("---------------#Error al crear la lista entrada y salida del usuario");
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);

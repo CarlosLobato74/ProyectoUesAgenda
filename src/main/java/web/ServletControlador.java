@@ -30,12 +30,12 @@ public class ServletControlador extends HttpServlet {
                     break;
                 }
                 case "eliminarEvento": {
-                    System.out.println("llamare a eliminar");
+                    
                     this.eliminarEvento(request, response);
                     break;
                 }
                 case "cerrarSesion": {
-                    System.out.println("Cerrando Sesion");
+                   
                     Date salida = new Date();
                     String salidas = salida.toString() + "";
                     this.fechaSalida = salidas;
@@ -94,7 +94,6 @@ public class ServletControlador extends HttpServlet {
 
     }
 
-    
     //METODOS DE USUARIO
 
     /*Accion default Para respuesta del JSP*/
@@ -107,14 +106,13 @@ public class ServletControlador extends HttpServlet {
         String fecha = entrada.toString() + "";
         this.fechaEntrada = fecha;
 
-        System.out.println("Aqui imprime la entrada: " + entrada.toString());
         /*Info de la agenda*/
         List<Cliente> clientes = new ClienteDaoJDBC().listar();
         sesion.setAttribute("clientes", clientes);
         /*info del usuario*/
         List<Login> userInfo = new ClienteDaoJDBC().listarUsuario();
         sesion.setAttribute("logins", userInfo);
-
+        /*info de entradas y salidas del usuario*/
         List<LogsUsuario> logsInfo = new ClienteDaoJDBC().listarLog();
         sesion.setAttribute("logs", logsInfo);
 
@@ -141,7 +139,8 @@ public class ServletControlador extends HttpServlet {
 
         } else if (r == 0) {
             String noSeEncontro = "No se encontro el usuario";
-            request.setAttribute("noEncontrado", noSeEncontro);
+            request.setAttribute("noSeEncontro", noSeEncontro);
+
             //response.sendRedirect("index.jsp");
             request.getRequestDispatcher("index.jsp").forward(request, response);
 
@@ -164,14 +163,18 @@ public class ServletControlador extends HttpServlet {
         r = dao.verSiExiste(l);
         if (r > 0) {
             /*AQUI SE MANDARA EL MENSAJE DE NO DISPONIBLE*/
-            System.out.println("NO SE AGREGARA YA EXISTE");
+
+            String nodisponible = "El usuario no esta disponible";
+            request.setAttribute("nodisponible", nodisponible);
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else if (r == 0) {
-            System.out.println("CREO QUE LO VOY A REGISTRAR ");
+
             Login registrarse = new Login(usuario, contra, nombre, apellido, telefono, direccion);
+            String registrado = "Se a registrado el usuario con exito";
+            request.setAttribute("registrado", registrado);
             /*Insertamos en la base de datos*/
             int registrandose = new LoginDaoJDBC().insertar(registrarse);
-            System.out.println("registros ingresados: " + registrandose);
+
             request.getRequestDispatcher("index.jsp").forward(request, response);
 
         }
@@ -199,7 +202,7 @@ public class ServletControlador extends HttpServlet {
         int idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
 
         Cliente cliente = new ClienteDaoJDBC().encontrar(new Cliente(idAgenda));
-        System.out.println("ESTAAAAAAAAAA ES LA AGENDAAAAAAAAA: " + cliente.getIdAgenda());
+
         request.setAttribute("cliente", cliente);
 
         String jspEditarAgenda = "/WEB-INF/paginas/cliente/actualizarAgenda.jsp";

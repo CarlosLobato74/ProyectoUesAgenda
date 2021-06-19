@@ -9,7 +9,7 @@
                         <h4 class="text-center">Bitacora de Eventos Agendados</h4>
 
                     </div>
-                    <table class="table table-dark">
+                    <table class="table table-dark table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
