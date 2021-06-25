@@ -9,15 +9,19 @@ public class Conexion {
     private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/ues_base?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "UesOcc";
+    private static BasicDataSource dataSource;
+    
     
     /*Recupera una conexion a la base de datos*/
     public static DataSource getDataSource(){
-        BasicDataSource ds = new BasicDataSource();
-        ds.setUrl(JDBC_URL);
-        ds.setUsername(JDBC_USER);
-        ds.setPassword(JDBC_PASSWORD);
-        ds.setInitialSize(10);
-        return ds;
+       if (dataSource == null){
+            dataSource = new BasicDataSource();
+        dataSource.setUrl(JDBC_URL);
+        dataSource.setUsername(JDBC_USER);
+        dataSource.setPassword(JDBC_PASSWORD);
+        dataSource.setInitialSize(50);
+       }
+        return dataSource;
     }
     /*Obtiene la conexion a la base de datos dependiendo del pool de conexion*/
     public static Connection getConnection() throws SQLException{
