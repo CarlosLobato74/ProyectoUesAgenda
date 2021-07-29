@@ -6,9 +6,9 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 public class Conexion {
-    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/ues_base?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "UesOcc";
+    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:port/database?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String JDBC_USER = "";
+    private static final String JDBC_PASSWORD = "";
     private static BasicDataSource dataSource;
     
     
