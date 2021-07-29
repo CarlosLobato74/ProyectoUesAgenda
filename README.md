@@ -1,12 +1,2 @@
 # ProyectoUesAgenda
 ProyectoUes Agenda 
-
-BASE DE DATOS 
-CARLOS Y MARCELA 
-
-INTERFAZ 
-EMERZON Y JOSE 
-
-SERVLET 
-JOEL Y MARIO
-
